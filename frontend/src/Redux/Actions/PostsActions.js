@@ -11,6 +11,7 @@ import {
   POST_GET_ALL_REQUEST,
   POST_GET_ALL_SUCCESS,
   POST_LIKE,
+  POST_RECEIVE_COMMENT,
 } from "../Constants/PostsConstants";
 
 // GET ALL POSTS
@@ -89,4 +90,15 @@ export const addComment = (postId, message) => async (dispatch) => {
     type: POST_ADD_COMMENT,
     payload: { comments: data.comments, postId },
   });
+};
+
+// RECEIVE COMMENT
+export const receiveComment = (postId) => (dispatch) => {
+  setTimeout(async () => {
+    const { data } = await PostApi.receiveComment(postId);
+    dispatch({
+      type: POST_RECEIVE_COMMENT,
+      payload: { result: data.result, postId },
+    });
+  }, 1200);
 };

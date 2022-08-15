@@ -23,3 +23,6 @@ export const deletePost = (postId) =>
 
 export const addComment = (postId, message) =>
   API.put("/comment", { postId, message }, config);
+
+export const receiveComment = (postId) =>
+  API.get(`/receivecomment/${postId}`, config);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../Redux/Actions/PostsActions";
+import { getMyFollowers } from "../../Redux/Actions/UserActions";
 import EditProfile from "./EditProfile";
 
 const Profile = () => {
@@ -19,6 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getAllPosts());
+    dispatch(getMyFollowers(userInfo.user._id));
   }, []);
 
   localStorage.setItem("userInfo", JSON.stringify(userInfo));
@@ -74,14 +76,14 @@ const Profile = () => {
                   EDIT
                 </button>
 
-                <button
+                {/* <button
                   disabled
                   className="btn btn-sm btn-outline-primary w-100"
                   title="Will be added in the future"
                 >
                   CHAT
                   <i className="far fa-comments ms-lg-1"></i>
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

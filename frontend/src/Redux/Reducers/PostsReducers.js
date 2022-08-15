@@ -10,6 +10,7 @@ import {
   POST_GET_ALL_REQUEST,
   POST_GET_ALL_SUCCESS,
   POST_LIKE,
+  POST_RECEIVE_COMMENT,
 } from "../Constants/PostsConstants";
 
 // GET ALL POSTS
@@ -80,6 +81,20 @@ export const getAllPostsReducers = (state = {}, action) => {
             return {
               ...post,
               comments: action.payload.comments,
+            };
+          }
+          return post;
+        }),
+      };
+    case POST_RECEIVE_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload.postId) {
+            return {
+              ...post,
+              // comments: [...post.comments],
+              comments: [...post.comments, action.payload.result],
             };
           }
           return post;

@@ -3,6 +3,7 @@ import * as AuthApi from "../../api/AuthRequest";
 import * as UsersApi from "../../api/UsersRequest";
 import {
   ADD_FOLLOWING,
+  GET_FOLLOWERS,
   REMOVE_FOLLOWING,
   UPDATE_PROFILE,
   USER_FOLLOW,
@@ -57,11 +58,11 @@ export const login = (email, password, navigate) => async (dispatch) => {
       toast.warning(data.error);
     } else {
       navigate("/", { replace: true });
+      document.location.href = "/";
       toast.success(data.msg);
     }
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    document.location.href = "/";
 
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
@@ -79,8 +80,8 @@ export const login = (email, password, navigate) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.clear();
   dispatch({ type: USER_LOGOUT });
-  toast.error("Be healthy until you see !");
   document.location.href = "/login";
+  toast.error("Be healthy until you see !");
 };
 
 // GET ALL USERS
@@ -116,6 +117,12 @@ export const userProfileAction = (userId) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+// GET MY PROFILE FOLLOWERS
+export const getMyFollowers = (myId) => async (dispatch) => {
+  const { data } = await UsersApi.userProfile(myId);
+  dispatch({ type: GET_FOLLOWERS, payload: data.user.followers });
 };
 
 // USER FOLLOW

@@ -6,6 +6,7 @@ const {
   disLike,
   deletePost,
   addComment,
+  receiveComment,
 } = require("../controllers/postsControllers");
 const login = require("../middleware/login");
 const { createPostValidators } = require("../utils/validators");
@@ -30,5 +31,8 @@ router.delete("/deletepost/:postId", deletePost);
 
 // ADD COMMENT
 router.put("/comment", addComment);
+
+// RECEIVE COMMENT
+router.get("/receivecomment/:postId", receiveComment);
 
 module.exports = router;

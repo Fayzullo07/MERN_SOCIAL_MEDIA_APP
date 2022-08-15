@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 
 // SOCKET.IO CLIENT
 import io from "socket.io-client";
-import { addComment } from "../../Redux/Actions/PostsActions";
-const socket = io.connect("http://localhost:5000");
+import { addComment, receiveComment } from "../../Redux/Actions/PostsActions";
+const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
 
 const Comments = (props) => {
   const { comments, myId, postId } = props;
@@ -36,8 +36,8 @@ const Comments = (props) => {
     }
   };
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      dispatch(addComment(postId, data));
+    socket.on("receive_message", () => {
+      dispatch(receiveComment(postId));
     });
   }, [socket]);
   return (

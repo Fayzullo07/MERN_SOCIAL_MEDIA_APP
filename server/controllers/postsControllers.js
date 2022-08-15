@@ -115,6 +115,18 @@ const addComment = (req, res) => {
     });
 };
 
+const receiveComment = (req, res) => {
+  Post.findOne({ _id: req.params.postId })
+    .populate("comments.sender", "_id name photo")
+    .then((data) => {
+      const result = data.comments[data.comments.length - 1];
+      res.json({ result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 module.exports = {
   getAllPosts,
   createPost,
@@ -122,4 +134,5 @@ module.exports = {
   disLike,
   deletePost,
   addComment,
+  receiveComment,
 };

@@ -87,13 +87,13 @@ const ProfileUser = () => {
                   </button>
                 )}
 
-                <button
+                {/* <button
                   disabled
                   className="btn btn-sm btn-outline-primary w-100"
                 >
                   CHAT
                   <i className="far fa-comments ms-lg-1"></i>
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

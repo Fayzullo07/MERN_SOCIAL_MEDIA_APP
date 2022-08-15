@@ -1,5 +1,6 @@
 import {
   ADD_FOLLOWING,
+  GET_FOLLOWERS,
   REMOVE_FOLLOWING,
   UPDATE_PROFILE,
   USER_FOLLOW,
@@ -42,6 +43,17 @@ export const userLoginReducer = (state = {}, action) => {
       return { loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
       return { loading: false, error: action.payload };
+    case GET_FOLLOWERS:
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          user: {
+            ...state.userInfo.user,
+            followers: action.payload,
+          },
+        },
+      };
     case ADD_FOLLOWING:
       return {
         ...state,
