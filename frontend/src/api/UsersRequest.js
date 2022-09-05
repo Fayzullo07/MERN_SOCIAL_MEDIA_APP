@@ -24,3 +24,9 @@ export const userUnFollow = (unfollowId) =>
 
 export const updateProfile = (updateInfo) =>
   API.put("/updateProfile", updateInfo, config);
+
+export const getFollowersUsers = (userId) =>
+  API.get(`/getFollowerUsers/${userId}`, config);
+
+export const getFollowingsUsers = (userId) =>
+  API.get(`/getFollowingUsers/${userId}`, config);

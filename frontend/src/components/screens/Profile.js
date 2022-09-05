@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../Redux/Actions/PostsActions";
 import { getMyFollowers } from "../../Redux/Actions/UserActions";
 import EditProfile from "./EditProfile";
+import ShowFollowersModal from "./ShowFollowersModal";
+import ShowFollowingModal from "./ShowFollowingModal";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [showFollowingModal, setShowFollowingModal] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -49,7 +53,12 @@ const Profile = () => {
                 </div>
 
                 <div className="d-flex flex-column">
-                  <span className="followers">Followers</span>
+                  <span
+                    className="followers"
+                    onClick={() => setShowFollowersModal(!showFollowersModal)}
+                  >
+                    Followers
+                  </span>
                   <span className="number2">
                     {userInfo.user && userInfo.user.followers
                       ? userInfo.user.followers.length
@@ -58,7 +67,12 @@ const Profile = () => {
                 </div>
 
                 <div className="d-flex flex-column">
-                  <span className="rating">Following</span>
+                  <span
+                    className="rating"
+                    onClick={() => setShowFollowingModal(!showFollowingModal)}
+                  >
+                    Following
+                  </span>
                   <span className="number3">
                     {userInfo.user && userInfo.user.following
                       ? userInfo.user.following.length
@@ -118,6 +132,20 @@ const Profile = () => {
           myPhoto={userInfo.user.photo}
           myName={userInfo.user.name}
           myEmail={userInfo.user.email}
+        />
+      )}
+      {showFollowersModal && (
+        <ShowFollowersModal
+          showFollowersModal={showFollowersModal}
+          setShowFollowersModal={setShowFollowersModal}
+          userId={userInfo.user._id}
+        />
+      )}
+      {showFollowingModal && (
+        <ShowFollowingModal
+          showFollowingModal={showFollowingModal}
+          setShowFollowingModal={setShowFollowingModal}
+          userId={userInfo.user._id}
         />
       )}
     </div>

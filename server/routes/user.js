@@ -6,6 +6,8 @@ const {
   getAllUsers,
   getUser,
   updateProfile,
+  getFollowerUsers,
+  getFollowingUsers,
 } = require("../controllers/userControllers");
 const { updateProfileValidators } = require("../utils/validators");
 
@@ -21,5 +23,9 @@ router.put("/follow", follow);
 router.put("/unfollow", unFollow);
 
 router.put("/updateProfile", updateProfileValidators, updateProfile);
+
+router.get("/getFollowerUsers/:userId", getFollowerUsers);
+
+router.get("/getFollowingUsers/:userId", getFollowingUsers);
 
 module.exports = router;

@@ -121,4 +121,53 @@ const updateProfile = (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, getUser, follow, unFollow, updateProfile };
+const getFollowerUsers = (req, res) => {
+  try {
+    User.findOne({ _id: req.params.userId })
+      .then((user) => {
+        User.find({ _id: { $in: user.followers } })
+          .select("_id name photo email")
+          .then((result) => {
+            res.json({ users: result });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getFollowingUsers = (req, res) => {
+  try {
+    User.findOne({ _id: req.params.userId })
+      .then((user) => {
+        User.find({ _id: { $in: user.following } })
+          .select("_id name photo email")
+          .then((result) => {
+            res.json({ users: result });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = {
+  getAllUsers,
+  getUser,
+  follow,
+  unFollow,
+  updateProfile,
+  getFollowerUsers,
+  getFollowingUsers,
+};
