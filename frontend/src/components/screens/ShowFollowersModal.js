@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getFollowersUsers } from "../../api/UsersRequest";
 import SkeletonLoading from "../../Untils/SkeletLoading";
@@ -6,6 +7,9 @@ import SkeletonLoading from "../../Untils/SkeletLoading";
 const ShowFollowersModal = (props) => {
   const { showFollowersModal, setShowFollowersModal, userId } = props;
   const [users, setUsers] = useState([]);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     getFollowersUsers(userId)
@@ -40,7 +44,11 @@ const ShowFollowersModal = (props) => {
                 users?.map((user) => (
                   <Link
                     key={user._id}
-                    to={`/profile/${user?._id}`}
+                    to={
+                      user?._id === userInfo?.user?._id
+                        ? `/profile`
+                        : `/profile/${user?._id}`
+                    }
                     className="text-reset text-decoration-none"
                   >
                     <div

@@ -43,7 +43,11 @@ const HomeRSideUsers = () => {
                   />
                 </div>
                 <div className="col pt-2 fst-italic">
-                  <h2>{user.name}</h2>
+                  <h2>
+                    {user.name.length > 12
+                      ? `${user.name.substring(0, 10)}...`
+                      : user.name}
+                  </h2>
                 </div>
               </div>
             </Link>
